@@ -1,0 +1,129 @@
+import random
+
+def tirar_cubilete():
+    """
+    Devuelve una lista con los valores de los 5 dados tirados.
+    """
+    dados = [random.randint(1, 6) for _ in range(5)]
+    return dados
+
+def cuantos_hay(elemento, lista):
+    """
+    Toma un elemento y una lista y devuelve la cantidad de veces que elemento aparece en lista.
+    """
+    return lista.count(elemento)
+
+def puntos_por_unos(lista_dados):
+    """
+    Toma una lista de valores obtenidos y devuelve el puntaje obtenido por la cantidad de unos en lista_dados según las reglas actuales.
+    """
+    unos = cuantos_hay(1, lista_dados)
+    if unos >= 3:
+        if unos == 3:
+            return 1000
+        elif unos == 4:
+            return 1100
+        else:
+            return 10000
+    else:
+        return unos * 100
+
+def puntos_por_cincos(lista_dados):
+    """
+    Toma una lista de valores obtenidos y devuelve el puntaje obtenido por la cantidad de cincos en lista_dados según las reglas actuales.
+    """
+    cincos = cuantos_hay(5, lista_dados)
+    if cincos >= 3:
+        if cincos == 3:
+            return 500
+        elif cincos == 4:
+            return 550
+        else:
+            return 600
+    else:
+        return cincos * 50
+
+def total_puntos(lista_dados):
+    """
+    Toma una lista de valores obtenidos y devuelve el puntaje obtenido según las reglas actuales.
+    """
+    return puntos_por_unos(lista_dados) + puntos_por_cincos(lista_dados)
+
+def jugar_ronda(cant_jugadores):
+    """
+    Simula una ronda de jugadas y devuelve una lista con los puntos obtenidos por cada uno de los cant_jugadores jugadores.
+    """
+    puntajes_ronda = []
+    for _ in range(cant_jugadores):
+        dados = tirar_cubilete()
+        puntaje = total_puntos(dados)
+        puntajes_ronda.append(puntaje)
+    return puntajes_ronda
+
+def acumular_puntos(puntajes_acumulados, puntajes_ronda):
+    """
+    Recibe como parámetro una lista con los puntajes acumulados de cada jugador y los resultados de la última ronda (puntajes_ronda).
+    La función devuelve una lista de puntajes actualizados.
+    """
+    return [puntaje_acumulado + puntaje_ronda for puntaje_acumulado, puntaje_ronda in zip(puntajes_acumulados, puntajes_ronda)]
+
+def hay_10mil(puntajes_acumulados):
+    """
+    Toma como parámetro una lista con puntajes acumulados por los jugadores, y devuelve el valor lógico True si algún puntaje es mayor o igual a 10000 o False si no.
+    """
+    return any(puntaje >= 10000 for puntaje in puntajes_acumulados)
+
+def partida_completa(cant_jugadores):
+    """
+    Simula rondas del juego con cant_jugadores jugadores hasta que algún jugador llega a sumar 10000 puntos.
+    Devuelve la cantidad de rondas jugadas.
+    """
+    puntajes_acumulados = [0] * cant_jugadores
+    rondas = 0
+    while not hay_10mil(puntajes_acumulados):
+        puntajes_ronda = jugar_ronda(cant_jugadores)
+        puntajes_acumulados = acumular_puntos(puntajes_acumulados, puntajes_ronda)
+        rondas += 1
+    return rondas
+
+def simulacion_partidas(cant_jugadores, N_rep):
+    """
+    Simula N_rep partidas completas con cant_jugadores jugadores.
+    Devuelve una lista con la cantidad de rondas jugadas en cada partida.
+    """
+    cant_rondas = []
+    for _ in range(N_rep):
+        rondas = partida_completa(cant_jugadores)
+        cant_rondas.append(rondas)
+    return cant_rondas
+
+# Respuestas a las preguntas
+N_rep = 10000
+
+# a) En promedio, ¿cuántas rondas tiene una partida con cant_jugadores=10 jugadores?
+cant_jugadores = 10
+cant_rondas = simulacion_partidas(cant_jugadores, N_rep)
+promedio_rondas = sum(cant_rondas) / N_rep
+print(f"En promedio, una partida con {cant_jugadores} jugadores tiene {promedio_rondas:.2f} rondas.")
+
+# b) ¿Qué chances hay de terminar una partida con cant_jugadores=10 jugadores (que algún jugador alcance los diez mil puntos) si solo tenemos tiempo para jugar a lo sumo 18 rondas?
+max_rondas = 18
+partidas_terminadas = sum(1 for rondas in cant_rondas if rondas <= max_rondas)
+probabilidad = partidas_terminadas / N_rep
+print(f"La probabilidad de terminar una partida con {cant_jugadores} jugadores en a lo sumo {max_rondas} rondas es: {probabilidad:.4f}")
+```
+
+Explicación del código en español:
+
+1. Se importa el módulo `random` para generar números aleatorios.
+2. Se define la función `tirar_cubilete()` que genera una lista de 5 números aleatorios entre 1 y 6, simulando el lanzamiento de 5 dados.
+3. Se define la función `cuantos_hay(elemento, lista)` que cuenta la cantidad de veces que un elemento aparece en una lista.
+4. Se definen las funciones `puntos_por_unos(lista_dados)` y `puntos_por_cincos(lista_dados)` que calculan los puntos obtenidos por los unos y cincos, respectivamente, según las reglas del juego.
+5. Se define la función `total_puntos(lista_dados)` que calcula el puntaje total obtenido en una tirada sumando los puntos por unos y cincos.
+6. Se define la función `jugar_ronda(cant_jugadores)` que simula una ronda del juego para la cantidad de jugadores especificada, devolviendo una lista con los puntajes obtenidos por cada jugador en esa ronda.
+7. Se define la función `acumular_puntos(puntajes_acumulados, puntajes_ronda)` que actualiza los puntajes acumulados de los jugadores sumando los puntajes obtenidos en la última ronda.
+8. Se define la función `hay_10mil(puntajes_acumulados)` que verifica si algún jugador ha alcanzado o superado los 10000 puntos.
+9. Se define la función `partida_completa(cant_jugadores)` que simula una partida completa del juego hasta que algún jugador alcance los 10000 puntos, devolviendo la cantidad de rondas jugadas.
+10. Se define la función `simulacion_partidas(cant_jugadores, N_rep)` que simula `N_rep` partidas completas con la cantidad de jugadores especificada, devolviendo una lista con la cantidad de rondas jugadas en cada partida.
+11. Se establece el valor de `N_rep` en 10000 para simular 10000 partidas.
+12. Se responde a la primera pregunta calculando el promedio
