@@ -1,32 +1,32 @@
 Explicación del código en español:
 
-1. Se importa el módulo `random` para generar números aleatorios.
+1. Se importa el módulo random para generar números aleatorios.
 
-2. Se define la función `tirar_cubilete()` que genera una lista de 5 números aleatorios entre 1 y 6,
+2. Se define la función tirar_cubilete() que genera una lista de 5 números aleatorios entre 1 y 6,
 simulando el lanzamiento de 5 dados.
 
-3. Se define la función `cuantos_hay(elemento, lista)` que cuenta la cantidad de veces que un elemento aparece en una lista.
+3. Se define la función cuantos_hay(elemento, lista) que cuenta la cantidad de veces que un elemento aparece en una lista.
 
-4. Se definen las funciones `puntos_por_unos(lista_dados)` y `puntos_por_cincos(lista_dados)` que calculan 
+4. Se definen las funciones puntos_por_unos(lista_dados) y puntos_por_cincos(lista_dados) que calculan 
 los puntos obtenidos por los unos y cincos, respectivamente, según las reglas del juego.
 
-5. Se define la función `total_puntos(lista_dados)` que calcula el puntaje total obtenido en una tirada sumando
+5. Se define la función total_puntos(lista_dados) que calcula el puntaje total obtenido en una tirada sumando
 los puntos por unos y cincos.
 
-6. Se define la función `jugar_ronda(cant_jugadores)` que simula una ronda del juego para la cantidad de jugadores especificada,
+6. Se define la función jugar_ronda(cant_jugadores) que simula una ronda del juego para la cantidad de jugadores especificada,
 devolviendo una lista con los puntajes obtenidos por cada jugador en esa ronda.
 
-7. Se define la función `acumular_puntos(puntajes_acumulados, puntajes_ronda)` que actualiza los puntajes acumulados de los jugadores
+7. Se define la función acumular_puntos(puntajes_acumulados, puntajes_ronda) que actualiza los puntajes acumulados de los jugadores
 sumando los puntajes obtenidos en la última ronda.
 
-8. Se define la función `hay_10mil(puntajes_acumulados)` que verifica si algún jugador ha alcanzado o superado los 10000 puntos.
+8. Se define la función hay_10mil(puntajes_acumulados) que verifica si algún jugador ha alcanzado o superado los 10000 puntos.
 
-9. Se define la función `partida_completa(cant_jugadores)` que simula una partida completa del juego hasta que algún jugador
+9. Se define la función partida_completa(cant_jugadores) que simula una partida completa del juego hasta que algún jugador
 alcance los 10000 puntos, devolviendo la cantidad de rondas jugadas.
 
-10. Se define la función `simulacion_partidas(cant_jugadores, N_rep)` que simula `N_rep` partidas completas con la cantidad
+10. Se define la función simulacion_partidas(cant_jugadores, N_rep) que simula N_rep partidas completas con la cantidad
 de jugadores especificada, devolviendo una lista con la cantidad de rondas jugadas en cada partida.
 
-11. Se establece el valor de `N_rep` en 10000 para simular 10000 partidas.
+11. Se establece el valor de n_rep en 10000 para simular 10000 partidas.
 
 12. Se responde a la primera pregunta calculando el promedio
