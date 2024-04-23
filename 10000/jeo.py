@@ -48,7 +48,7 @@ def jugar_ronda(cant_jugadores): # funcion que devuelve los puntajes obtenidos e
 
 def acumular_puntos(puntajes_acumulados, puntajes_ronda): # funcion que devuelve los puntajes acumulados
     puntajes_actualizados = [] # lista que contiene los puntajes acumulados
-    for i in range(len(puntajes_acumulados)): # puntaje para cada jugador
+    for i in range(len(puntajes_acumulados)): # puntaje para cada jugador 
         puntajes_actualizados.append(puntajes_acumulados[i] + puntajes_ronda[i]) # agrego el puntaje obtenido en una ronda a la lista de puntajes_actualizados
     return puntajes_actualizados # devuelvo la lista de puntajes_actualizados
 
